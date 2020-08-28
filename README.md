@@ -57,7 +57,7 @@ NickelBird系列实验数据采集系统数据处理脚本合集。
 
 如果要校准的话
 
--`califile`指定校准文件，用前一步生成的：`'\WindTunnel\cali\rescali.csv'`
+- `califile`指定校准文件，用前一步生成的：`'\WindTunnel\cali\rescali.csv'`
 
 直接运行
 
