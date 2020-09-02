@@ -1,5 +1,5 @@
-function NBAuto(dirPath,cols,p,alpha,transcol,califile)
-% NBAuto(dirPath,cols,p,alpha,transcol,califile)
+function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
+% NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 % Auto data processor.
 %
 %	dirpath:file directory
@@ -13,6 +13,19 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile)
 % [optional]Calibration,must use with transform
 %	califile:calibration file
 %
+
+	%check auto cali
+	if nargin>=7
+		if size(califile,2)>6
+			if strcmp(califile(1:6),'[auto]')				
+				calipath=fullfile(dirPath,'cali');
+				fprintf('Auto generate cali file from %s\n',calipath);
+				NBProcessCaliFile(calipath,calicol,alpha);
+				califile=fullfile(dirPath,'cali','rescali.csv');
+				fprintf('Generation complete.\n');
+			end
+		end
+	end
 	%get file list
 	fileList=dir([dirPath,'/*.csv']);
 	fcnt=size(fileList,1);
@@ -23,7 +36,7 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile)
 	tagnames=['Tag1';'Tag2';'Tag3';'Tag4';'Tag5';'Tag6';'Freq'];
 	flag=0;
 	
-	if nargin==6
+	if nargin>=6
 		%load cali file;
 		califile=importdata(califile);	
 		caliheaders=califile.colheaders(2:end);
@@ -77,7 +90,7 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile)
 			end
 		end		
 		fprintf(fout,'%f,',f);
-		if nargin==6
+		if nargin>=6
 			%cali
 			a=str2double(tags{alpha+1});
 			for j=1:dcnt
