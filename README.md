@@ -20,7 +20,11 @@ NickelBird系列实验数据采集系统数据处理脚本合集。
 
 ### 批量处理
 
-#### 生成校准文件
+#### 自动生成校准文件
+
+如果生成校准文件使用的数据位于数据文件夹的一个子文件夹中，如本例中校准数据位于`\cali`文件夹，则可以使用`NBAuto`自动生成校准文件，参考[这里](#autocali)。
+
+#### 手动生成校准文件
 
 首先使用`NBProcessCaliFile`生成校准文件。
 
@@ -55,13 +59,22 @@ NickelBird系列实验数据采集系统数据处理脚本合集。
 
 `NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6])`
 
-如果要校准的话
+如果要手动指定校准文件进行校准的话
 
 - `califile`指定校准文件，用前一步生成的：`'\WindTunnel\cali\rescali.csv'`
 
 直接运行
 
 `NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6]，'\WindTunnel\cali\rescali.csv')`
+
+如果要自动生成校准文件的话<a name="autocali"></a>
+
+- `califile`指定校准数据子目录名，前面加`[auto]`标记：`'[auto]cali'`
+- `calicol`指定要校准的列，与手动生成校准文件中的`cols`相同：`{'Fx_LPF','Fz_LPF','My_LPF'}`
+
+直接运行
+
+`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6]，'[auto]cali',{'Fx_LPF','Fz_LPF','My_LPF'})`
 
 脚本会处理所有csv文件，但会跳过开头是`res`的文件，最终生成`res.csv`。
 
