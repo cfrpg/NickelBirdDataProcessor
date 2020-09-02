@@ -49,11 +49,11 @@ NickelBird系列实验数据采集系统数据处理脚本合集。
 如果要坐标变换的话
 
 - `alpha`指定迎角是第几个tag，跟上面类似：`3`
-- `transcol`指定坐标变换的列在**结果**中是第几个，把每两个写一行构成n*2的矩阵，这里变换`Fx,Fz`和`Mx,Mz`：`{1,3;4,6}`
+- `transcol`指定坐标变换的列在**结果**中是第几个，把每两个写一行构成n*2的矩阵，这里变换`Fx,Fz`和`Mx,Mz`：`[1,3;4,6]`
 
 如果不需要校准就不要输后面的参数了，直接运行
 
-`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,{1,3;4,6})`
+`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6])`
 
 如果要校准的话
 
@@ -61,7 +61,7 @@ NickelBird系列实验数据采集系统数据处理脚本合集。
 
 直接运行
 
-`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,{1,3;4,6}，'\WindTunnel\cali\rescali.csv')`
+`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6]，'\WindTunnel\cali\rescali.csv')`
 
 脚本会处理所有csv文件，但会跳过开头是`res`的文件，最终生成`res.csv`。
 
