@@ -1,6 +1,6 @@
 # NickelBirdDataProcessor
 
-NickelBird系列实验数据采集系统数据处理脚本合集。
+[NickelBird](https://github.com/cfrpg/NickelBird)系列实验数据采集系统数据处理脚本合集。
 
 ## 使用方法和注意事项
 
@@ -26,7 +26,7 @@ NickelBird系列实验数据采集系统数据处理脚本合集。
 
 #### 手动生成校准文件
 
-首先使用`NBProcessCaliFile`生成校准文件。
+首先使用`NBProcessCaliFile(dirpath,cols,alpha)`生成校准文件。
 
 - `dirpath`指定数据所在的目录：`'\WindTunnel\cali'`
 - `cols`指定需要校准的列，通常只有纵向数据会受俯仰角变化影响，即：`{'Fx_LPF','Fz_LPF','My_LPF'}`
@@ -36,11 +36,11 @@ NickelBird系列实验数据采集系统数据处理脚本合集。
 
 `NBProcessCaliFile('\WindTunnel\cali',{'Fx_LPF','Fz_LPF','My_LPF'},3)`
 
-得到校准文件`\WindTunnel\calirescali.csv`
+得到校准文件`\WindTunnel\cali\rescali.csv`
 
 #### 批处理实验数据文件
 
-使用`NBAuto`自动处理一个文件夹中的数据
+使用`NBAuto(dirpath,cols,p[,alpha,transcol,califile,calicol])`自动处理一个文件夹中的数据
 
 - `dirpath`指定数据所在的目录，子目录会被忽略：`'\WindTunnel'`
 - `cols`指定要处理的列：`{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'}`
