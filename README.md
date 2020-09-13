@@ -65,7 +65,7 @@
 
 直接运行
 
-`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6]，'\WindTunnel\cali\rescali.csv')`
+`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6],'\WindTunnel\cali\rescali.csv')`
 
 如果要自动生成校准文件的话<a name="autocali"></a>
 
@@ -74,7 +74,7 @@
 
 直接运行
 
-`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6]，'[auto]cali',{'Fx_LPF','Fz_LPF','My_LPF'})`
+`NBAuto('\WindTunnel',{'Fx_LPF','Fy_LPF','Fz_LPF','Mx_LPF','My_LPF','Mz_LPF'},1,3,[1,3;4,6],'[auto]cali',{'Fx_LPF','Fz_LPF','My_LPF'})`
 
 脚本会处理所有csv文件，但会跳过开头是`res`的文件，最终生成`res.csv`。
 
