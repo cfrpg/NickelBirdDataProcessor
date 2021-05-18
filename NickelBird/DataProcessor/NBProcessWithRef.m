@@ -1,4 +1,4 @@
-function [data,freq,ps]=NBProcessWithRef(file,cols,ref)
+function [data,freq,vars,ps]=NBProcessWithRef(file,cols,ref)
 % [data,freq]=NBProcessWithRef(file,cols,trig)
 % Process file woth reference col,data will be divide into same peroids as
 % reference column.

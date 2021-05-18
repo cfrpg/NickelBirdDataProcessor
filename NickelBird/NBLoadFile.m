@@ -1,4 +1,4 @@
-function [header,data,freq,ps]=NBLoadFile(path,cols,p)
+function [header,data,freq,vars,ps]=NBLoadFile(path,cols,p)
 % [header,data,freq]=NBLoadFile(path,cols,p)
 % Load and process a result file.
 %
@@ -73,22 +73,22 @@ function [header,data,freq,ps]=NBLoadFile(path,cols,p)
 	%get headers
 	header=file.colheaders(realcol);
 	%process data
-	if nargout<=3
+	if nargout<=5
 		ps=0;
 		if trig>0
-			[data,freq]=NBProcessWithTrig(file,realcol,trig);
+			[data,freq,vars]=NBProcessWithTrig(file,realcol,trig);
 		elseif ref>0
-			[data,freq]=NBProcessWithRef(file,realcol,ref);
+			[data,freq,vars]=NBProcessWithRef(file,realcol,ref);
 		else
-			[data,freq]=NBProcessWithNothing(file,realcol,p);
+			[data,freq,vars]=NBProcessWithNothing(file,realcol,p);
 		end
 	else
 		if trig>0
-			[data,freq,ps]=NBProcessWithTrig(file,realcol,trig);
+			[data,freq,vars,ps]=NBProcessWithTrig(file,realcol,trig);
 		elseif ref>0
-			[data,freq,ps]=NBProcessWithRef(file,realcol,ref);
+			[data,freq,vars,ps]=NBProcessWithRef(file,realcol,ref);
 		else
-			[data,freq,ps]=NBProcessWithNothing(file,realcol,p);
+			[data,freq,vars,ps]=NBProcessWithNothing(file,realcol,p);
 		end
 	end	
 end

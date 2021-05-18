@@ -1,4 +1,4 @@
-function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
+function NBAutoVar(dirPath,cols,p,alpha,transcol,califile,calicol)
 % NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 % Auto data processor.
 %
@@ -57,7 +57,9 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 			disp('res file,skip.');
 			continue;
 		end        
-        [h,d,f,~]=NBLoadFile(fullfile(fileList(i).folder,fileList(i).name),cols,p);
+        [h,d,f,ps]=NBLoadFile(fullfile(fileList(i).folder,fileList(i).name),cols,p);
+		paver=mean(ps');
+		pvar=var
 		dcnt=max(size(h));
 		%output header row
 		if flag==0
@@ -65,13 +67,13 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 				fprintf(fout,'%s,',tagnames(j,:));
 			end			
 			for j=1:dcnt
-				fprintf(fout,'%s,',h{j});
+				fprintf(fout,'%s,%s_var',h{j},h{j});
 			end			
 			if nargin>=5
 				%transform header
 				tn=size(transcol,1);
 				for j=1:tn
-					fprintf(fout,'%s,%s,',[h{transcol(j,1)},'_w'],[h{transcol(j,2)},'_w']);
+					fprintf(fout,'%s,%s_var,%s,%s_var,',[h{transcol(j,1)},'_w'],[h{transcol(j,1)},'_w'],[h{transcol(j,2)},'_w'],[h{transcol(j,2)},'_w']);
 				end
 			end
 			fprintf(fout,'\n');

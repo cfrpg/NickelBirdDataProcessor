@@ -1,4 +1,4 @@
-function [data,freq,ps]=NBProcessWithNothing(file,cols,p)
+function [data,freq,vars,ps]=NBProcessWithNothing(file,cols,p)
 % [data,freq]=NBProcessWithNothing(file,cols,p)
 % Process file with no assistance
 %
@@ -19,6 +19,7 @@ function [data,freq,ps]=NBProcessWithNothing(file,cols,p)
     l=l(2);
 	data=zeros(1,l);
 	freq=zeros(1,l);
+	vars=zeros(1,l);
 	mincor=1;
 	arr={};
     %Process cols	
@@ -28,6 +29,7 @@ function [data,freq,ps]=NBProcessWithNothing(file,cols,p)
             [cor,tps,aver]=NBGetPeriod(file.data(:,cols(i)));
 			arr{i}=mean(tps);
             data(i)=mean(aver);
+			vars(i)=var(mean(tps,2));
             t=size(aver);
             freq(i)=1000/t(2);
 			if cor<mincor
@@ -42,9 +44,10 @@ function [data,freq,ps]=NBProcessWithNothing(file,cols,p)
 		for i=1:l
 			data(i)=mean(file.data(:,cols(i)));
             freq(i)=0;
+			vars(i)=0;
 		end
 	else
-		if nargout==3
+		if nargout>=4
 			maxlen=0;
 			for i=1:l
 				maxlen=max(maxlen,max(size(arr{i})));

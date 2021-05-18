@@ -1,4 +1,4 @@
-function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
+function NBAutoVar(dirPath,cols,p,alpha,transcol,califile,calicol)
 % NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 % Auto data processor.
 %
@@ -31,7 +31,7 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 	fcnt=size(fileList,1);
 	
 	%creat result file
-	fout=fopen(fullfile(dirPath,'res.csv'),'w+');
+	fout=fopen(fullfile(dirPath,'resWithVar.csv'),'w+');
 	dcnt=max(size(cols));
 	tagnames=['Tag1';'Tag2';'Tag3';'Tag4';'Tag5';'Tag6';'Freq'];
 	flag=0;
@@ -57,7 +57,7 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 			disp('res file,skip.');
 			continue;
 		end        
-        [h,d,f,~]=NBLoadFile(fullfile(fileList(i).folder,fileList(i).name),cols,p);
+        [h,d,f,vars]=NBLoadFile(fullfile(fileList(i).folder,fileList(i).name),cols,p);		
 		dcnt=max(size(h));
 		%output header row
 		if flag==0
@@ -65,13 +65,13 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 				fprintf(fout,'%s,',tagnames(j,:));
 			end			
 			for j=1:dcnt
-				fprintf(fout,'%s,',h{j});
+				fprintf(fout,'%s,%s_var,',h{j},h{j});
 			end			
 			if nargin>=5
 				%transform header
 				tn=size(transcol,1);
 				for j=1:tn
-					fprintf(fout,'%s,%s,',[h{transcol(j,1)},'_w'],[h{transcol(j,2)},'_w']);
+					fprintf(fout,'%s,%s_var,%s,%s_var,',[h{transcol(j,1)},'_w'],[h{transcol(j,1)},'_w'],[h{transcol(j,2)},'_w'],[h{transcol(j,2)},'_w']);
 				end
 			end
 			fprintf(fout,'\n');
@@ -103,7 +103,7 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 			end
 		end
 		for j=1:dcnt
-			fprintf(fout,'%f,',d(j));
+			fprintf(fout,'%f,%f,',d(j),vars(j));
 		end
 		if nargin>=5
 				%transform data
@@ -115,9 +115,13 @@ function NBAuto(dirPath,cols,p,alpha,transcol,califile,calicol)
 				for j=1:tn
 					xb=d(transcol(j,1));
 					zb=d(transcol(j,2));
-					xw=xb*ca+zb*sa;
+					xw=xb*ca+zb*sa;					
 					zw=-xb*sa+zb*ca;
-					fprintf(fout,'%f,%f,',xw,zw);
+					xb=vars(transcol(j,1));
+					zb=vars(transcol(j,2));
+					xv=xb*ca*ca+zb*sa*sa;
+					zv=xb*sa*sa+zb*ca*ca;
+					fprintf(fout,'%f,%f,%f,%f,',xw,xv,zw,zv);
 				end
 			end
 		fprintf(fout,'\n');
