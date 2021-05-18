@@ -2,6 +2,8 @@
 
 [NickelBird](https://github.com/cfrpg/NickelBird)系列实验数据采集系统数据处理脚本合集。
 
+由于某些函数的兼容性问题，请使用R2016b及以后的版本。
+
 ## 使用方法和注意事项
 
 ### 实验中
